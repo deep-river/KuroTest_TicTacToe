@@ -23,19 +23,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 65625523507200
-    m_Localized: Start
+    m_Localized: START
     m_Metadata:
       m_Items: []
   - m_Id: 65709954846720
-    m_Localized: Settings
+    m_Localized: SETTINGS
     m_Metadata:
       m_Items: []
   - m_Id: 65911881224192
-    m_Localized: About
+    m_Localized: ABOUT
     m_Metadata:
       m_Items: []
   - m_Id: 65975911469056
-    m_Localized: Exit
+    m_Localized: EXIT
     m_Metadata:
       m_Items: []
   - m_Id: 416653095751680

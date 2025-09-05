@@ -3,8 +3,8 @@ using UnityEngine.UI;
 
 public abstract class UIPanelBase : MonoBehaviour
 {
-    [SerializeField] string panelId { get; }    // 唯一ID
-    [SerializeField] bool isModal { get; }      // 是否遮挡下层并拦截点击
+    [SerializeField] private string panelId;    // 唯一ID
+    [SerializeField] private bool isModal;      // 是否遮挡下层并拦截点击
     [Header("Optional")]
     [SerializeField] CanvasGroup canvasGroup;   // 控制显隐与交互
     [SerializeField] GameObject focusBlocker;   // 半透明遮罩（Modal）
