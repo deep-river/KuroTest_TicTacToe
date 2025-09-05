@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class UIManager : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class UIManager : MonoBehaviour
         Locator.UI = this;
     }
 
-    public T Show<T>(string id, object args = null) where T : UIPanelBase
+    public UIPanelBase Show(string id, object args = null)
     {
         var panel = Ensure(id);
         var root = panel.IsModal ? modalRoot : baseRoot;
@@ -30,7 +31,7 @@ public class UIManager : MonoBehaviour
         stack.Push(panel);
         panel.Show(args);
         panel.OnFocus(true);
-        return (T)panel;
+        return panel;
     }
 
     public void CloseTop()
@@ -68,7 +69,8 @@ public class UIManager : MonoBehaviour
         if (!cache.TryGetValue(id, out var panel))
         {
             var prefab = panelPrefabs.Find(p => p.id == id)?.prefab;
-            panel = Instantiate(prefab);
+            var parent = prefab.IsModal ? modalRoot : baseRoot;
+            panel = Instantiate(prefab, parent);
             cache[id] = panel;
         }
         return panel;
