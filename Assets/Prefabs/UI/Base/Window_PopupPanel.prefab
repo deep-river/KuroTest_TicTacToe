@@ -162,7 +162,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6100593339012239903}
   m_Layer: 5
-  m_Name: UI_PopupPanel
+  m_Name: Window_PopupPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

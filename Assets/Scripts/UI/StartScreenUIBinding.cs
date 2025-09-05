@@ -33,10 +33,7 @@ public class StartScreenUIBinding : MonoBehaviour
 
     private void OnAboutClicked()
     {
-        // 你关心的“关于游戏”按钮
         Locator.UI?.Show("GameInfoPanel");
-        // 如需判空提示，可加：
-        // if (Locator.UI == null) Debug.LogWarning("UIManager not ready.");
     }
 
     private void OnQuitClicked()
