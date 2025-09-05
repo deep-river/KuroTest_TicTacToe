@@ -50,6 +50,10 @@ MonoBehaviour:
     m_Localized: CLOSE
     m_Metadata:
       m_Items: []
+  - m_Id: 452040547651584
+    m_Localized: QUIT GAME?
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

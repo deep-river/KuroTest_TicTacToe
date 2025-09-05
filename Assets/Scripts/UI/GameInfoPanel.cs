@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class GameInfoPanel : UIPanelBase
 {
-    [Header("Button reference")]
+    [Header("Button")]
     [SerializeField] private Button closeButton;
 
     private void Awake()
