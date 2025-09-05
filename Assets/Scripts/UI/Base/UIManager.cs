@@ -5,10 +5,10 @@ using static UnityEngine.EventSystems.EventTrigger;
 public class UIManager : MonoBehaviour
 {
     [Header("Canvas Layers")]
-    public Transform baseRoot;   // Base Canvas ÏÂµÄÈİÆ÷
-    public Transform modalRoot;  // Modal Canvas ÏÂµÄÈİÆ÷
+    public Transform baseRoot;   // Base Canvas ä¸‹çš„å®¹å™¨
+    public Transform modalRoot;  // Modal Canvas ä¸‹çš„å®¹å™¨
 
-    // Ô¤ÉèÃæ°å£¨ÍÏÒıÓÃ»òÍ¨¹ıResources/Addressables£©
+    // é¢„è®¾é¢æ¿ï¼ˆæ‹–å¼•ç”¨æˆ–é€šè¿‡Resources/Addressablesï¼‰
     [System.Serializable] public class PanelEntry { public string id; public UIPanelBase prefab; }
     public List<PanelEntry> panelPrefabs;
 
@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
 
     public void CloseExclusiveGroup(string groupId)
     {
-        // ×¢Òâ£ºÓÃÁÙÊ±Õ»´æ´¢Ê£ÓàÃæ°å£¬ÖØĞÂÑ¹»Ø
+        // æ³¨æ„ï¼šç”¨ä¸´æ—¶æ ˆå­˜å‚¨å‰©ä½™é¢æ¿ï¼Œé‡æ–°å‹å›
         if (stack.Count == 0) return;
 
         var temp = new Stack<UIPanelBase>();
@@ -60,7 +60,7 @@ public class UIManager : MonoBehaviour
                 temp.Push(top);
             }
         }
-        // »Ö¸´Ê£ÓàµÄÃæ°å
+        // æ¢å¤å‰©ä½™çš„é¢æ¿
         while (temp.Count > 0) stack.Push(temp.Pop());
     }
 

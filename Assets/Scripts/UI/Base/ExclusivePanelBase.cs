@@ -2,13 +2,13 @@ using UnityEngine;
 
 public abstract class ExclusivePanelBase : UIPanelBase
 {
-    [SerializeField] string exclusiveGroupId = "default"; // Inspector¿ÉÅäÖÃ
+    [SerializeField] string exclusiveGroupId = "default"; // Inspectorå¯é…ç½®
 
     public string ExclusiveGroupId => exclusiveGroupId;
 
     public override void Show(object args = null)
     {
-        // ÔÚÏÔÊ¾Ç°ÏÈÇåÀíÍ¬×éÃæ°å
+        // åœ¨æ˜¾ç¤ºå‰å…ˆæ¸…ç†åŒç»„é¢æ¿
         Locator.UI.CloseExclusiveGroup(exclusiveGroupId);
         base.Show(args);
     }

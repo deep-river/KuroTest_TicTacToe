@@ -3,11 +3,11 @@ using UnityEngine.UI;
 
 public abstract class UIPanelBase : MonoBehaviour
 {
-    [SerializeField] string panelId { get; }    // Î¨Ò»ID
-    [SerializeField] bool isModal { get; }      // ÊÇ·ñÕÚµ²ÏÂ²ã²¢À¹½Øµã»÷
+    [SerializeField] string panelId { get; }    // å”¯ä¸€ID
+    [SerializeField] bool isModal { get; }      // æ˜¯å¦é®æŒ¡ä¸‹å±‚å¹¶æ‹¦æˆªç‚¹å‡»
     [Header("Optional")]
-    [SerializeField] CanvasGroup canvasGroup;   // ¿ØÖÆÏÔÒşÓë½»»¥
-    [SerializeField] GameObject focusBlocker;   // °ëÍ¸Ã÷ÕÚÕÖ£¨Modal£©
+    [SerializeField] CanvasGroup canvasGroup;   // æ§åˆ¶æ˜¾éšä¸äº¤äº’
+    [SerializeField] GameObject focusBlocker;   // åŠé€æ˜é®ç½©ï¼ˆModalï¼‰
 
     public string PanelId => panelId;
     public bool IsModal => isModal;
@@ -26,8 +26,8 @@ public abstract class UIPanelBase : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    // ¶¥²ã/Ê§½¹Í¨Öª
-    public virtual void OnFocus(bool focused) { /* ¿ÉÑ¡£º¸ßÁÁ/ÔİÍ£»¥¶¯ */ } 
+    // é¡¶å±‚/å¤±ç„¦é€šçŸ¥
+    public virtual void OnFocus(bool focused) { /* å¯é€‰ï¼šé«˜äº®/æš‚åœäº’åŠ¨ */ } 
 
     protected virtual void OnShow(object args = null) { }
     protected virtual void OnHide() { }

@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 // 全局定位器，用于访问单例服务
 public static class Locator
