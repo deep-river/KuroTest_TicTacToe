@@ -38,6 +38,18 @@ MonoBehaviour:
     m_Localized: Exit
     m_Metadata:
       m_Items: []
+  - m_Id: 416653095751680
+    m_Localized: CONFIRM
+    m_Metadata:
+      m_Items: []
+  - m_Id: 416733169209344
+    m_Localized: CANCEL
+    m_Metadata:
+      m_Items: []
+  - m_Id: 431090271801344
+    m_Localized: CLOSE
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
