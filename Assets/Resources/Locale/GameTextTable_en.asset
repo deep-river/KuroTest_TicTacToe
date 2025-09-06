@@ -66,6 +66,22 @@ MonoBehaviour:
     m_Localized: Volume
     m_Metadata:
       m_Items: []
+  - m_Id: 814888322879488
+    m_Localized: PAUSE
+    m_Metadata:
+      m_Items: []
+  - m_Id: 815049119911936
+    m_Localized: Hint
+    m_Metadata:
+      m_Items: []
+  - m_Id: 815317500841984
+    m_Localized: RESUME
+    m_Metadata:
+      m_Items: []
+  - m_Id: 815405728026624
+    m_Localized: END GAME
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
