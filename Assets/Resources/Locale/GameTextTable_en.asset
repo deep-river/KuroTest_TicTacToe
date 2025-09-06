@@ -54,6 +54,18 @@ MonoBehaviour:
     m_Localized: QUIT GAME?
     m_Metadata:
       m_Items: []
+  - m_Id: 454903004942336
+    m_Localized: SETTINGS
+    m_Metadata:
+      m_Items: []
+  - m_Id: 760846129319936
+    m_Localized: Language
+    m_Metadata:
+      m_Items: []
+  - m_Id: 763384681484288
+    m_Localized: Volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

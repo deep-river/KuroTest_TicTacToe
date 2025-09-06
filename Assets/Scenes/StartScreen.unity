@@ -1242,6 +1242,8 @@ MonoBehaviour:
     prefab: {fileID: 1227886453058836310, guid: bb2dec9f6d4a34543a8453587a6b8e7b, type: 3}
   - id: ConfirmQuitPanel
     prefab: {fileID: 6025694308733393137, guid: 40220ae6813207545bc4eb0a792c097e, type: 3}
+  - id: SettingsPanel
+    prefab: {fileID: 3205513081377434147, guid: 0ee7b81d88fb5b04180c1e96b24aeb07, type: 3}
 --- !u!4 &986061094
 Transform:
   m_ObjectHideFlags: 0
