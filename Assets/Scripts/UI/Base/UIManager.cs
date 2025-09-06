@@ -8,7 +8,6 @@ public class UIManager : MonoBehaviour
     public Transform baseRoot;   // Base Canvas 下的容器
     public Transform modalRoot;  // Modal Canvas 下的容器
 
-    // 预设面板（拖引用或通过Resources/Addressables）
     [System.Serializable] public class PanelEntry { public string id; public UIPanelBase prefab; }
     public List<PanelEntry> panelPrefabs;
 

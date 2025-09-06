@@ -13,7 +13,7 @@ public class SettingsPanel : UIPanelBase
     [SerializeField] private Button cancelButton;
 
     [Header("Locale Codes (match your Locale assets)")]
-    [SerializeField] private string zhCode = "zh-Hans"; // 或你项目里配置的 "zh" / "zh-CN"
+    [SerializeField] private string zhCode = "zh-Hans";
     [SerializeField] private string enCode = "en";
 
     const string PP_LANG = "lang";
