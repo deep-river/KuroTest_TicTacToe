@@ -65,11 +65,10 @@ public class BoardView : MonoBehaviour
         var go = Instantiate(prefab, piecesRoot ? piecesRoot : transform);
         go.transform.position = cell.position;
         go.transform.rotation = cell.rotation;
-        go.transform.localScale = Vector3.one;
 
         spawnedPieces[index] = go;
 
-        // 可选：做一个轻微弹出的动效（如缩放 0.8 -> 1.0），此处略
+        // 可选TODO：做一个轻微弹出的动效（如缩放 0.8 -> 1.0），此处略
     }
 
     /// <summary>供 BoardCell 调用；玩家点击某格子。</summary>
