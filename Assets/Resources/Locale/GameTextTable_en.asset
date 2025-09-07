@@ -82,6 +82,34 @@ MonoBehaviour:
     m_Localized: END GAME
     m_Metadata:
       m_Items: []
+  - m_Id: 1058202573885440
+    m_Localized: Scoreboard
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058281401634816
+    m_Localized: 'Round:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058352537030656
+    m_Localized: 'Step:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058491431407616
+    m_Localized: 'Score:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058539825287168
+    m_Localized: 'Win Rate:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058585186684928
+    m_Localized: 'Difficulty:'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1058732893294592
+    m_Localized: Easy
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
