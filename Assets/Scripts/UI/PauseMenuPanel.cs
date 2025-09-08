@@ -7,6 +7,7 @@ public class PauseMenuPanel : UIPanelBase
     [SerializeField] private Toggle showHintToggle;
     [SerializeField] private Button btnResume;
     [SerializeField] private Button btnEndMatch;
+    [SerializeField] private string gameResultPanelId = "GameResultPanel"; // 结算面板 ID
 
     // 依赖：场景中的状态机。也可以手动在 Inspector 里拖引用
     [SerializeField] private GameStateManager game;
@@ -55,7 +56,7 @@ public class PauseMenuPanel : UIPanelBase
     {
         game?.EndMatchEarly();     // 状态机进入结算状态
         Locator.UI?.CloseTop();    // 关闭当前面板
-        Locator.UI?.Show("GameResult"); // 打开结算面板（确保已在 UIManager 注册）
+        Locator.UI?.Show(gameResultPanelId); // 打开结算面板（确保已在 UIManager 注册）
     }
 
     private void OnHintToggle(bool on)

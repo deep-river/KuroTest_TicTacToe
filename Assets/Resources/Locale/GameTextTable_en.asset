@@ -110,6 +110,26 @@ MonoBehaviour:
     m_Localized: Easy
     m_Metadata:
       m_Items: []
+  - m_Id: 1492506240110592
+    m_Localized: MATCH OVER
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1496165439000576
+    m_Localized: Statistics
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1500202234302464
+    m_Localized: YOU WON
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1500317791571968
+    m_Localized: YOU LOST
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1505176112615424
+    m_Localized: Draw
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

@@ -57,6 +57,7 @@ public class GameStateManager : MonoBehaviour
         board.Reset();
         boardView?.ResetView();
 
+        roundIndex++;
         OnRoundStarted?.Invoke(roundIndex);
         OnStepChanged?.Invoke(stepCount);
 
