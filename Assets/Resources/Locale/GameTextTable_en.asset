@@ -130,6 +130,26 @@ MonoBehaviour:
     m_Localized: Draw
     m_Metadata:
       m_Items: []
+  - m_Id: 1518146028851200
+    m_Localized: Mode Select
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1526052224782336
+    m_Localized: Quick Match
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1526130817650688
+    m_Localized: Endless Mode
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1527523062337536
+    m_Localized: Medium
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1527604024987648
+    m_Localized: Hard
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
