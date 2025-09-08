@@ -22,7 +22,7 @@ public class GameStateManager : MonoBehaviour
     private State state = State.Idle;
 
     private Board board = new Board();
-    private int roundIndex = 1;
+    private int roundIndex = 0;
     private int stepCount = 0;
 
     private Mark humanMark = Mark.X;
