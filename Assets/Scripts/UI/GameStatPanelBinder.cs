@@ -93,7 +93,7 @@ public class GameStatPanelBinder : MonoBehaviour
     {
         // 仅通知状态机“暂停”，具体显示面板交给场景其它入口或这里也可以直接打开
         game?.Pause();
-        Locator.UI?.Show("PauseMenuPanel");
+        Locator.UI?.Show(PanelIds.PauseMenuPanel);
     }
 
     private void ResetUI()

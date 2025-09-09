@@ -91,7 +91,7 @@ public class QuickPointsController : MonoBehaviour
         };
 
         // 打开结算面板；若面板支持 args，可展示更详细信息
-        Locator.UI?.Show("GameResultPanel", summary);
+        Locator.UI?.Show(PanelIds.GameResultPanel, summary);
     }
 
     // —— 可选：传给 GameResultPanel 的结构（面板若不读 args 也不影响显示）—— //

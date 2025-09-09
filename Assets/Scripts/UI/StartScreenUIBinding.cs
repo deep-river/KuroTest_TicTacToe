@@ -16,33 +16,33 @@ public class StartScreenUIBinding : MonoBehaviour
         if (settingsBtn) settingsBtn.onClick.AddListener(OnSettingsClicked);
         if (aboutBtn) aboutBtn.onClick.AddListener(OnAboutClicked);
         if (quitBtn) quitBtn.onClick.AddListener(OnQuitClicked);
-        if (playerBtn) playerBtn.onClick.AddListener(OnPlayerClicked);
+        // if (playerBtn) playerBtn.onClick.AddListener(OnPlayerClicked);
     }
 
     // —— 按钮回调 —— //
     private void OnPlayClicked()
     {
         // 打开“模式/难度选择”的面板
-        Locator.UI?.Show("ModeSelectPanel");
+        Locator.UI?.Show(PanelIds.ModeSelectPanel);
     }
 
     private void OnSettingsClicked()
     {
-        Locator.UI?.Show("SettingsPanel");
+        Locator.UI?.Show(PanelIds.SettingsPanel);
     }
 
     private void OnAboutClicked()
     {
-        Locator.UI?.Show("GameInfoPanel");
+        Locator.UI?.Show(PanelIds.GameInfoPanel);
     }
 
     private void OnQuitClicked()
     {
-        Locator.UI?.Show("ConfirmQuitPanel");
+        Locator.UI?.Show(PanelIds.ConfirmQuitPanel);
     }
 
-    private void OnPlayerClicked()
-    {
-        Locator.UI?.Show("PlayerInfoPanel");
-    }
+    //private void OnPlayerClicked()
+    //{
+    //    Locator.UI?.Show("PlayerInfoPanel");
+    //}
 }
