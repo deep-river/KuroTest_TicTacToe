@@ -10,7 +10,7 @@ public class GameStateManager : MonoBehaviour
     public event Action<Turn> OnTurnChanged;
     public event Action<int, Mark> OnMoveCommitted;
     public event Action<int> OnStepChanged;
-    public event Action<GameResult, int[]> OnGameOver; // 附带胜利线（可空）
+    public event Action<GameResult, int[]> OnGameOver;
 
     // —— 依赖 —— //
     [Header("References")]

@@ -2150,7 +2150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   game: {fileID: 941545809}
   difficulty: {fileID: 941545808}
-  writeJsonOnMatchEnd: 0
+  writeJsonOnMatchEnd: 1
 --- !u!114 &941545812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2216,6 +2216,7 @@ MonoBehaviour:
   game: {fileID: 941545809}
   btnPause: {fileID: 977187141}
   btnDebug: {fileID: 858433965}
+  showDebugInRelease: 0
 --- !u!1 &977187139
 GameObject:
   m_ObjectHideFlags: 0

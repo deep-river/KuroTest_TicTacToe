@@ -66,6 +66,7 @@ public class GameRecorder : MonoBehaviour
         game.OnRoundStarted += HandleRoundStarted;
         game.OnMoveCommitted += HandleMoveCommitted;
         game.OnGameOver += HandleGameOver;
+        GameResultPanel.OnResultConfirmed += HandleResultConfirmed;
     }
 
     private void OnDisable()
@@ -74,6 +75,7 @@ public class GameRecorder : MonoBehaviour
         game.OnRoundStarted -= HandleRoundStarted;
         game.OnMoveCommitted -= HandleMoveCommitted;
         game.OnGameOver -= HandleGameOver;
+        GameResultPanel.OnResultConfirmed -= HandleResultConfirmed;
     }
 
     private void HandleRoundStarted(int round)
@@ -119,22 +121,36 @@ public class GameRecorder : MonoBehaviour
             case GameResult.AIWin: session.aiWins++; break;
             case GameResult.Draw: session.draws++; break;
         }
-
-        if (writeJsonOnMatchEnd)
-        {
-            TryWriteJson(current);
-        }
     }
 
-    private void TryWriteJson(MatchLog log)
+    private void HandleResultConfirmed()
+    {
+        TryWriteJson();
+    }
+
+    private void TryWriteJson()
     {
         try
         {
+            // 1) 标准持久目录：persistentDataPath/logs/session_YYYYMMDD_HHmmss.json
             var dir = Path.Combine(Application.persistentDataPath, "logs");
             if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            var file = Path.Combine(dir, $"match_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json");
-            File.WriteAllText(file, JsonUtility.ToJson(log, true));
-            Debug.Log($"[GameRecorder] Match log saved: {file}");
+
+            var ts = DateTime.UtcNow.ToString("yyyyMMdd_HHmmss");
+            var pretty = JsonUtility.ToJson(session, true);
+
+            var file = Path.Combine(dir, $"match_{ts}.json");
+            File.WriteAllText(file, pretty);
+            Debug.Log($"[GameRecorder] Match log saved:\n{file}");
+
+#if UNITY_EDITOR
+            // 2) 额外复制到项目目录：Assets/Logs/session_YYYYMMDD_HHmmss.json
+            var editorDir = Path.GetFullPath(Path.Combine(Application.dataPath, "../Logs"));
+            if (!Directory.Exists(editorDir)) Directory.CreateDirectory(editorDir);
+            var editorFile = Path.Combine(editorDir, $"match_{ts}.json");
+            File.WriteAllText(editorFile, pretty);
+            Debug.Log($"[GameRecorder] (Editor) Match log saved: {editorFile}");
+#endif
         }
         catch (Exception e)
         {

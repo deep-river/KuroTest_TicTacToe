@@ -34,6 +34,7 @@ public class GameResultPanel : UIPanelBase
     [SerializeField] private string keyDraw = "UI提示文本-和局";
 
     private GameRecorder recorder;
+    public static event Action OnResultConfirmed; // 🔔结算确认事件
 
     private void Awake()
     {
@@ -102,30 +103,9 @@ public class GameResultPanel : UIPanelBase
 
     private void OnConfirm()
     {
-        // 生成本地对局详细记录（会话维度）
-        TryWriteSessionJson();
-
+        OnResultConfirmed?.Invoke();
         // 返回 StartScreen
         SceneManager.LoadScene(startSceneName);
-    }
-
-    private void TryWriteSessionJson()
-    {
-        if (recorder == null || recorder.Session == null) return;
-
-        try
-        {
-            var dir = Path.Combine(Application.persistentDataPath, "logs");
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-
-            string file = Path.Combine(dir, $"session_{DateTime.UtcNow:yyyyMMdd_HHmmss}.json");
-            File.WriteAllText(file, JsonUtility.ToJson(recorder.Session, true));
-            Debug.Log($"[GameResultPanel] Session log saved: {file}");
-        }
-        catch (Exception e)
-        {
-            Debug.LogWarning($"[GameResultPanel] Save failed: {e.Message}");
-        }
     }
 
     private static void SetText(TMP_Text t, string v) { if (t) t.text = v; }
