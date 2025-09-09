@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartScreenUIBinding : MonoBehaviour
+public class StartScreenUIBinder : MonoBehaviour
 {
     [Header("Buttons")]
     [SerializeField] private Button playBtn;

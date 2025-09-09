@@ -64,6 +64,18 @@ public static class DifficultyTableResources
     }
 
     /// <summary>
+    /// 用于调试面板的Reset功能
+    /// </summary>
+    /// <returns></returns>
+    public static string GetResourcesJson()
+    {
+        var ta = Resources.Load<TextAsset>("Config/difficulty"); // 与表路径一致
+        if (ta != null && !string.IsNullOrEmpty(ta.text)) return ta.text;
+        // 兜底：默认表
+        return "";
+    }
+
+    /// <summary>
     /// 会话内热重载：把编辑后的 JSON 直接应用到内存。
     /// 成功返回 true；失败返回 false 并提供错误原因。
     /// </summary>

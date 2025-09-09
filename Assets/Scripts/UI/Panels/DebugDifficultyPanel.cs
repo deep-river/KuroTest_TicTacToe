@@ -8,6 +8,7 @@ public class DebugDifficultyPanel : UIPanelBase
     [SerializeField] private TMP_InputField jsonInput; // 多行、等宽字体
     [SerializeField] private Button btnApply;
     [SerializeField] private Button btnCancel;
+    [SerializeField] private Button btnReset;
     [SerializeField] private TMP_Text errorLabel;      // 可选：显示校验错误
 
     private DifficultyManager diff;
@@ -18,6 +19,7 @@ public class DebugDifficultyPanel : UIPanelBase
 
         if (btnApply) btnApply.onClick.AddListener(OnApply);
         if (btnCancel) btnCancel.onClick.AddListener(() => Locator.UI?.CloseTop());
+        if (btnReset) btnReset.onClick.AddListener(OnReset);
     }
 
     protected override void OnShow(object args = null)
@@ -42,5 +44,13 @@ public class DebugDifficultyPanel : UIPanelBase
         {
             if (errorLabel) errorLabel.text = $"解析失败：{err}";
         }
+    }
+
+    private void OnReset()
+    {
+        if (!jsonInput) return;
+        // 仅重置编辑区域为 Resources 默认内容，不改变当前运行中的难度
+        jsonInput.text = DifficultyTableResources.GetResourcesJson();
+        if (errorLabel) errorLabel.text = string.Empty;
     }
 }

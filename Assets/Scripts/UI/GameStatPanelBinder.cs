@@ -30,7 +30,7 @@ public class GameStatPanelBinder : MonoBehaviour
         if (!game) game = FindObjectOfType<GameStateManager>();
         if (!difficulty) difficulty = FindObjectOfType<DifficultyManager>();
         
-        if (pauseButton) pauseButton.onClick.AddListener(OpenPauseMenu);
+        // if (pauseButton) pauseButton.onClick.AddListener(OpenPauseMenu);
         ResetUI();
     }
 
