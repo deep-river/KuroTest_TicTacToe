@@ -7,19 +7,21 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private bool aiStarts = false;
     [SerializeField] private AIDifficultyId defaultQuickDifficulty = AIDifficultyId.Normal;
 
-    // —— 公开属性 —— //
     public GameMode Mode { get; private set; } = GameMode.Quick;
     public bool AIStarts => aiStarts;
-    public int BestOf { get; private set; } = 3;  // ★ Quick 用
+    public int BestOf { get; private set; } = 3;
 
-    // —— 事件：HUD 难度文本动态刷新 —— //
-    public event Action<string> OnDifficultyChanged; // ★ 传 displayName
+    public event Action<string> OnDifficultyChanged;
 
     private IAgent currentAgent;
     private AIDifficulty currentCfg;
 
     private void Awake()
     {
+        // 读取 Resources 表
+        DifficultyTableResources.ReloadFromResources();
+
+        // 启动参数
         if (GameLaunchService.TryConsume(out var p) && p != null)
         {
             Mode = p.mode;
@@ -27,7 +29,7 @@ public class DifficultyManager : MonoBehaviour
             BestOf = (Mode == GameMode.Quick && p.bestOf > 0) ? p.bestOf : 3;
 
             if (Mode == GameMode.Quick) ApplyDifficulty(p.difficulty);
-            else ApplyDifficulty(AIDifficultyId.Easy); // Endless 起点
+            else ApplyDifficulty(AIDifficultyId.Easy);
         }
         else
         {
@@ -42,44 +44,56 @@ public class DifficultyManager : MonoBehaviour
 
     public void ApplyDifficulty(AIDifficultyId id)
     {
-        currentCfg = BuildPreset(id);
+        var db = DifficultyTableResources.Get();
+        if (!db.TryGetValue(id, out var cfg))
+        {
+            Debug.LogWarning($"[DifficultyManager] Difficulty '{id}' not found, fallback to default.");
+            cfg = DifficultyTableResources.Get()[defaultQuickDifficulty];
+        }
+        currentCfg = cfg;
         currentAgent = new MinimaxAgent(currentCfg);
-        OnDifficultyChanged?.Invoke(currentCfg.displayName); // ★ 通知 HUD
+        OnDifficultyChanged?.Invoke(currentCfg.displayName);
     }
 
-    // ★ Endless 阶梯使用：更细粒度，但 UI 保持三档显示
+    // Endless 阶梯沿用现有的 LadderLevel 逻辑（仍显示三档名）
     public void ApplyLadderLevel(EndlessModeController.LadderLevel lv)
     {
-        var mappedId = lv.tier switch
+        var baseId = lv.tier switch
         {
             EndlessModeController.LadderTier.Easy => AIDifficultyId.Easy,
             EndlessModeController.LadderTier.Normal => AIDifficultyId.Normal,
             _ => AIDifficultyId.Hard
         };
+        var baseCfg = DifficultyTableResources.Get()[baseId];
 
-        // 在对应档位基础上覆写 mistakeRate（depth=9，randomizeAmongBest=true 更像“人”）
         currentCfg = new AIDifficulty
         {
-            id = mappedId,
-            displayName = mappedId switch { AIDifficultyId.Easy => "Easy", AIDifficultyId.Normal => "Medium", _ => "Hard" },
-            depthLimit = 9,
+            id = baseCfg.id,
+            displayName = baseCfg.displayName,
+            depthLimit = baseCfg.depthLimit,
             mistakeRate = Mathf.Clamp01(lv.mistakeRate),
-            randomizeAmongBest = true
+            randomizeAmongBest = baseCfg.randomizeAmongBest
         };
         currentAgent = new MinimaxAgent(currentCfg);
-        OnDifficultyChanged?.Invoke(currentCfg.displayName); // ★
+        OnDifficultyChanged?.Invoke(currentCfg.displayName);
     }
 
-    private static AIDifficulty BuildPreset(AIDifficultyId id)
+    // —— 会话内重载：从 Resources 还原默认表 + 重新应用当前档 —— //
+    public void ReapplyCurrentDifficulty()
     {
-        switch (id)
-        {
-            case AIDifficultyId.Easy:
-                return new AIDifficulty { id = id, displayName = "Easy", depthLimit = 5, mistakeRate = 0.35f, randomizeAmongBest = true };
-            case AIDifficultyId.Normal:
-                return new AIDifficulty { id = id, displayName = "Medium", depthLimit = 9, mistakeRate = 0.10f, randomizeAmongBest = true };
-            default:
-                return new AIDifficulty { id = id, displayName = "Hard", depthLimit = 9, mistakeRate = 0.00f, randomizeAmongBest = false };
-        }
+        DifficultyTableResources.ReloadFromResources();
+        ApplyDifficulty(currentCfg.id); // 保持当前显示档位（Quick）
+        // Endless 情况下，可选择在下一局生效，或由控制器再次调用 ApplyLadderLevel
+    }
+
+    // —— 会话内直接套用来自调试面板的 JSON —— //
+    public bool ApplyJsonAndReapply(string json, out string error)
+    {
+        if (!DifficultyTableResources.TryApplyJsonAtRuntime(json, out error))
+            return false;
+
+        // 基于新的表重新实例化当前档的 agent
+        ApplyDifficulty(currentCfg.id);
+        return true;
     }
 }

@@ -1,0 +1,25 @@
+{
+  "items": [
+    {
+      "id": "Easy",
+      "displayName": "Easy",
+      "mistakeRate": 0.35,
+      "randomizeAmongBest": true,
+      "depthLimit": 5
+    },
+    {
+      "id": "Normal",
+      "displayName": "Medium",
+      "mistakeRate": 0.10,
+      "randomizeAmongBest": true,
+      "depthLimit": 7
+    },
+    {
+      "id": "Hard",
+      "displayName": "Hard",
+      "mistakeRate": 0.00,
+      "randomizeAmongBest": false,
+      "depthLimit": 9
+    }
+  ]
+}
