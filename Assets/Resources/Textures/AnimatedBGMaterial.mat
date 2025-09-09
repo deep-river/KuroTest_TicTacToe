@@ -58,7 +58,7 @@ Material:
     - _StripeFalloff: 1
     - _StripeOffset: 0
     - _StripeSpacing: 0.5
-    - _StripeSpeed: 5
+    - _StripeSpeed: 4.5
     - _StripeWidth: 0.2
     - _WaveAmp: 0
     - _WaveFreq: 0
