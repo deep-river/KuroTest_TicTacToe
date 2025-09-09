@@ -125,7 +125,8 @@ public class GameRecorder : MonoBehaviour
 
     private void HandleResultConfirmed()
     {
-        TryWriteJson();
+        if (writeJsonOnMatchEnd)
+            TryWriteJson();
     }
 
     private void TryWriteJson()
