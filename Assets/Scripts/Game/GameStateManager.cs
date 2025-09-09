@@ -32,12 +32,23 @@ public class GameStateManager : MonoBehaviour
 
     // 供 Pause 菜单切换的提示开关
     public bool ShowHint { get; private set; }
+    // Hint：最强 Minimax 代理（固定配置，不受难度影响）  
+    private IAgent hintAgent;
 
     // —— 生命周期 —— //
     private void Awake()
     {
         // 订阅 BoardView 的点击事件，或让 BoardView 直接调用 TryPlayerMove
         if (boardView != null) boardView.Bind(this);
+
+        hintAgent = new MinimaxAgent(new AIDifficulty
+        {
+            id = AIDifficultyId.Hard,     // 若没有此枚举，也可不赋值
+            displayName = "Hard",
+            depthLimit = 9,
+            mistakeRate = 0f,
+            randomizeAmongBest = false
+        });
     }
 
     private void Start()
@@ -69,7 +80,7 @@ public class GameStateManager : MonoBehaviour
     public void SetShowHint(bool show)
     {
         ShowHint = show;
-        // 这里可通知 BoardView 刷新推荐落点（留空）
+        RefreshHint();
     }
 
     public void Pause()
@@ -116,7 +127,7 @@ public class GameStateManager : MonoBehaviour
     {
         state = State.PlayerTurn;
         OnTurnChanged?.Invoke(Turn.PlayerTurn);
-        // 可在此高亮可落子位/提示
+        RefreshHint();
     }
 
     private void EnterAgentTurn()
@@ -125,6 +136,7 @@ public class GameStateManager : MonoBehaviour
         OnTurnChanged?.Invoke(Turn.AgentTurn);
 
         if (aiRoutine != null) StopCoroutine(aiRoutine);
+        boardView?.ClearHint();
         aiRoutine = StartCoroutine(Co_AgentMove());
     }
 
@@ -165,12 +177,14 @@ public class GameStateManager : MonoBehaviour
             state = State.GameOver;
             var line = Rules.GetWinningLine(board, last);
             var result = (last == humanMark) ? GameResult.HumanWin : GameResult.AIWin;
+            boardView?.ClearHint();
             OnGameOver?.Invoke(result, line);
             return true;
         }
         if (Rules.IsDraw(board))
         {
             state = State.GameOver;
+            boardView?.ClearHint();
             OnGameOver?.Invoke(GameResult.Draw, null);
             return true;
         }
@@ -189,5 +203,23 @@ public class GameStateManager : MonoBehaviour
     {
         // 这里按需要定义：提前结束可算平局
         return GameResult.Draw;
+    }
+
+    private void RefreshHint()
+    {
+        // 仅在：玩家回合 + 开启提示 时显示；否则清理
+        if (!(ShowHint && state == State.PlayerTurn))
+        {
+            boardView?.ClearHint();
+            return;
+        }
+
+        // 计算玩家方（humanMark）在当前局面的最佳落点
+        int best = hintAgent?.ChooseMove(board, humanMark) ?? -1;
+
+        if (best >= 0 && board.IsCellEmpty(best))
+            boardView?.ShowHintAt(best);
+        else
+            boardView?.ClearHint();
     }
 }

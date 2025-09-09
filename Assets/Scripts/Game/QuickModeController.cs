@@ -41,7 +41,6 @@ public class QuickPointsController : MonoBehaviour
     {
         if (seriesOver) return;
 
-        // —— 累计战果 —— //
         roundsPlayed++;
         switch (result)
         {
@@ -50,44 +49,48 @@ public class QuickPointsController : MonoBehaviour
             case GameResult.Draw: draws++; break;
         }
 
-        // —— 计算积分 —— //
-        float ptsP = winsP + draws * 0.5f;
-        float ptsA = winsA + draws * 0.5f;
-        float half = bestOf * 0.5f;   // 多数分阈值
-        int r = bestOf - roundsPlayed; // 剩余局数
+        // 胜场多数胜
+        int halfWins = (bestOf / 2) + 1;          // 多数胜所需胜场
+        int r = bestOf - roundsPlayed;            // 剩余局数
 
-        // —— 提前终结判定（积分多数胜 或 数学锁死）—— //
-        bool majorityReached = (ptsP > half) || (ptsA > half);
+        bool majorityByWins = (winsP >= halfWins) || (winsA >= halfWins);
         bool mathematicallyOver =
-            (ptsP + r < ptsA) ||   // 玩家最多加 r 分也追不上 AI
-            (ptsA + r < ptsP);     // AI 最多加 r 分也追不上玩家
+            (winsP > winsA + r) ||                // 即便剩余全胜，AI 也追不上玩家胜场
+            (winsA > winsP + r);                  // 反之亦然
 
-        if (majorityReached || mathematicallyOver || roundsPlayed >= bestOf)
+        if (majorityByWins || mathematicallyOver || roundsPlayed >= bestOf)
         {
-            FinishSeries(ptsP, ptsA);
+            FinishSeries();
         }
-        // 否则不做事：让 RoundResultTipPanelController 等玩家点击后开启下一回合
+        // 否则不做事：交给 RoundResultTipPanelController 点击后自动 StartNewRound()
     }
 
-    private void FinishSeries(float ptsP, float ptsA)
+    private void FinishSeries()
     {
         seriesOver = true;
 
-        // 系列赛结果（用于传给结算面板；面板也可自行从 Session 统计）
+        // 平局“积分”为0（可用于显示，不影响判定）
+        float ptsP = winsP; // draw=0
+        float ptsA = winsA;
+
+        // 最终判定按“有效对局（胜+负）”的胜场比较，忽略平局
+        GameResult seriesByWins =
+            (winsP > winsA) ? GameResult.HumanWin :
+            (winsA > winsP) ? GameResult.AIWin :
+                              GameResult.Draw;
+
         var summary = new QuickSeriesSummary
         {
             bestOf = bestOf,
             winsPlayer = winsP,
             winsAI = winsA,
             draws = draws,
-            pointsPlayer = ptsP,
+            pointsPlayer = ptsP,   // 仅展示用途：平局=0
             pointsAI = ptsA,
-            seriesResult = ptsP > ptsA ? GameResult.HumanWin
-                          : ptsA > ptsP ? GameResult.AIWin
-                          : GameResult.Draw
+            seriesResult = seriesByWins
         };
 
-        // 打开结算面板；如你的 GameResultPanel 支持 args，可传递 summary
+        // 打开结算面板；若面板支持 args，可展示更详细信息
         Locator.UI?.Show("GameResultPanel", summary);
     }
 
