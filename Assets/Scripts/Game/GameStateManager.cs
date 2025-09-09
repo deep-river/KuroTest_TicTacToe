@@ -15,7 +15,7 @@ public class GameStateManager : MonoBehaviour
     // —— 依赖 —— //
     [Header("References")]
     [SerializeField] private DifficultyManager difficultyManager;
-    [SerializeField] private BoardView boardView; // 你的渲染/点击组件（另行实现）
+    [SerializeField] private BoardView boardView; // 棋盘组件
 
     // —— 状态 —— //
     private enum State { Idle, Ready, PlayerTurn, AgentTurn, Paused, GameOver }
@@ -36,7 +36,7 @@ public class GameStateManager : MonoBehaviour
     // —— 生命周期 —— //
     private void Awake()
     {
-        // 你可以在这里订阅 BoardView 的点击事件，或让 BoardView 直接调用 TryPlayerMove
+        // 订阅 BoardView 的点击事件，或让 BoardView 直接调用 TryPlayerMove
         if (boardView != null) boardView.Bind(this);
     }
 

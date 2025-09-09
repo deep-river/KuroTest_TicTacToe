@@ -1145,7 +1145,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_ZH
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8017813103560119790, guid: d8892bef60f5127448320838d808b04d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1540,7 +1541,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Button_EN
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8017813103560119790, guid: d8892bef60f5127448320838d808b04d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

@@ -29,7 +29,7 @@ public class GameStatPanelBinder : MonoBehaviour
     {
         if (!game) game = FindObjectOfType<GameStateManager>();
         if (!difficulty) difficulty = FindObjectOfType<DifficultyManager>();
-
+        
         if (pauseButton) pauseButton.onClick.AddListener(OpenPauseMenu);
         ResetUI();
     }
@@ -40,6 +40,7 @@ public class GameStatPanelBinder : MonoBehaviour
         game.OnRoundStarted += HandleRoundStarted;
         game.OnStepChanged += HandleStepChanged;
         game.OnGameOver += HandleGameOver;
+        difficulty.OnDifficultyChanged += (name) => SetText(difficultyValue, name);
     }
 
     private void OnDisable()
@@ -48,6 +49,7 @@ public class GameStatPanelBinder : MonoBehaviour
         game.OnRoundStarted -= HandleRoundStarted;
         game.OnStepChanged -= HandleStepChanged;
         game.OnGameOver -= HandleGameOver;
+        difficulty.OnDifficultyChanged -= (name) => SetText(difficultyValue, name);
 
         if (pauseButton) pauseButton.onClick.RemoveListener(OpenPauseMenu);
     }

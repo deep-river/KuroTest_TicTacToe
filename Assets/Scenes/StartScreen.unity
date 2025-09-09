@@ -1246,6 +1246,8 @@ MonoBehaviour:
     prefab: {fileID: 3205513081377434147, guid: 0ee7b81d88fb5b04180c1e96b24aeb07, type: 3}
   - id: ModeSelectPanel
     prefab: {fileID: 4385849311393578550, guid: a653f402d611d834e8f1574ed17ea29a, type: 3}
+  - id: GameResultPanel
+    prefab: {fileID: 1078511991348218995, guid: 5322d5728c9da104f8ed6a910ba5f0b7, type: 3}
 --- !u!4 &986061094
 Transform:
   m_ObjectHideFlags: 0
